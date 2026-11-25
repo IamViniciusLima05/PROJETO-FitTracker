@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FitTracker | Registro de treinos</title>
+  <meta name="description" content="Registre seus treinos, veja o histórico da semana e as calorias estimadas de cada atividade.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <main class="app">
+    <header class="topo">
+      <p class="marca">FIT<span>TRACKER</span></p>
+      <button class="perfil" id="abrir-perfil" aria-label="Editar perfil">
+        <span id="perfil-peso">70 kg</span> · meta <span id="perfil-meta">150 min</span>
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20h4L19 9l-4-4L4 16v4Z"/></svg>
+      </button>
+    </header>
+
+    <section class="semana">
+      <div class="semana__nav">
+        <button class="seta" id="sem-ant" aria-label="Semana anterior">‹</button>
+        <div><h1 id="sem-titulo">Esta semana</h1><p id="sem-datas"></p></div>
+        <button class="seta" id="sem-prox" aria-label="Próxima semana">›</button>
+      </div>
+
+      <div class="painel">
+        <div class="meta-anel">
+          <svg viewBox="0 0 120 120" aria-hidden="true"><circle class="trilho" cx="60" cy="60" r="50"/><circle class="anel" id="anel" cx="60" cy="60" r="50"/></svg>
+          <div><strong id="meta-pct">0%</strong><span>da meta</span></div>
+        </div>
+        <div class="numeros">
+          <div><strong id="n-treinos">0</strong><span>treinos</span></div>
+          <div><strong id="n-min">0</strong><span>minutos</span></div>
+          <div><strong id="n-kcal">0</strong><span>kcal estimadas</span></div>
+          <div><strong id="n-var">—</strong><span>vs. semana anterior</span></div>
+        </div>
+      </div>
+
+      <div class="grafico" id="grafico" role="img" aria-label="Minutos de treino por dia da semana"></div>
+      <div class="grafico-leg"><span><i class="min"></i>minutos</span><span><i class="kcal"></i>kcal</span></div>
+    </section>
+
+    <section class="bloco">
+      <div class="bloco__topo">
+        <h2>Treinos da semana</h2>
+        <button class="btn" id="novo">+ Registrar treino</button>
+      </div>
+      <div id="historico"></div>
+    </section>
+
+    <section class="bloco">
+      <h2>Atividades favoritas</h2>
+      <ul class="ranking" id="ranking"></ul>
+    </section>
+  </main>
+
+  <dialog id="dlg-treino" aria-labelledby="t-titulo">
+    <form method="dialog" id="form-treino">
+      <h2 id="t-titulo">Registrar treino</h2>
+      <fieldset class="atividades" id="atividades"><legend>Atividade</legend></fieldset>
+      <div class="linha">
+        <label>Data<input type="date" id="f-data" required></label>
+        <label>Duração (min)<input type="number" id="f-dur" min="1" max="600" value="30" required></label>
+      </div>
+      <fieldset class="intensidade"><legend>Intensidade</legend>
+        <label><input type="radio" name="int" value="leve"><span>Leve</span></label>
+        <label><input type="radio" name="int" value="moderada" checked><span>Moderada</span></label>
+        <label><input type="radio" name="int" value="intensa"><span>Intensa</span></label>
+      </fieldset>
+      <label class="cheia">Observações<input id="f-obs" maxlength="80" placeholder="Ex.: 5 km no parque, treino de pernas…"></label>
+      <p class="estimativa" id="estimativa">≈ 0 kcal</p>
+      <div class="acoes">
+        <button value="cancelar" formnovalidate class="btn sec">Cancelar</button>
+        <button value="salvar" class="btn">Salvar</button>
+      </div>
+    </form>
+  </dialog>
+
+  <dialog id="dlg-perfil" aria-labelledby="p-titulo">
+    <form method="dialog">
+      <h2 id="p-titulo">Seu perfil</h2>
+      <p class="nota">O peso é usado para estimar as calorias (fórmula MET × peso × horas).</p>
+      <div class="linha">
+        <label>Peso (kg)<input type="number" id="p-peso" min="30" max="250" step="0.1" required></label>
+        <label>Meta semanal (min)<input type="number" id="p-meta" min="10" max="2000" step="10" required></label>
+      </div>
+      <div class="acoes">
+        <button value="cancelar" formnovalidate class="btn sec">Cancelar</button>
+        <button value="salvar" class="btn">Salvar</button>
+      </div>
+    </form>
+  </dialog>
+
+  <div class="aviso" id="aviso" role="status" hidden><span id="aviso-txt"></span><button id="desfazer">Desfazer</button></div>
+  <script src="js/script.js"></script>
+</body>
+</html>
